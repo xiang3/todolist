@@ -9,18 +9,18 @@ import org.mockito.junit.jupiter.MockitoExtension
 import org.mockito.kotlin.whenever
 
 @ExtendWith(MockitoExtension::class)
-class TodoServiceTest {
+class DomainTodoServiceTest {
     @Mock
     private lateinit var todoRepository: TodoRepository
 
     @InjectMocks
-    private lateinit var todoService: TodoService
+    private lateinit var todoDomainService: DomainTodoService
 
     @Test
     fun `should return todoList when findAll todoList`() {
         val todo: Todo = generateTodo()
         whenever(todoRepository.findAll()).thenReturn(listOf(todo))
-        val todoList: List<Todo> = todoService.getTodoList()
+        val todoList: List<Todo> = todoDomainService.getTodoList()
         assertThat(todoList).isEqualTo(listOf(todo))
     }
 
