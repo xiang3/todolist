@@ -1,5 +1,6 @@
 package com.example.todolist.domain
 
-class Todo{
-
-}
+data class Todo(
+    val id: String,
+    val title: String
+)
