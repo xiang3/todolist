@@ -1,6 +1,8 @@
-package com.example.todolist.repository
+package com.example.todolist.integrationtest
 
 import com.example.todolist.domain.Todo
+import com.example.todolist.repository.JpaTodoRepository
+import com.example.todolist.repository.TodoRepositoryImpl
 import com.example.todolist.repository.entity.TodoEntity
 import net.bytebuddy.utility.RandomString
 import org.assertj.core.api.Assertions.assertThat
@@ -17,21 +19,16 @@ import java.util.*
 @Import(value = [TodoRepositoryImpl::class])
 internal class TodoRepositoryImplTest {
     @Autowired
-    private lateinit var jpaTodoRepository: JpaTodoRepository
-
-    @Autowired
     private lateinit var todoRepositoryImpl: TodoRepositoryImpl
 
     @Test
     fun `should return todo list when call jpaTodoRepo`() {
-        val todoEntity: TodoEntity = generateTodoEntity()
-        jpaTodoRepository.save(todoEntity)
+        val todo: Todo= generateTodo()
+        todoRepositoryImpl.save(todo)
         with(todoRepositoryImpl.findAll()) {
-            assertThat(this).containsOnly(toTodo(todoEntity))
+            assertThat(this).containsOnly(todo)
         }
     }
 
-    private fun generateTodoEntity(): TodoEntity = TodoEntity(UUID.randomUUID().toString(), RandomString.make())
-
-    private fun toTodo(it: TodoEntity): Todo = Todo(id = it.id, title = it.title)
+    private fun generateTodo(): Todo = Todo(UUID.randomUUID().toString(), RandomString.make())
 }

@@ -11,5 +11,11 @@ class TodoRepositoryImpl(private val jpaTodoRepository: JpaTodoRepository) : Tod
         return jpaTodoRepository.findAll().map(this::toTodo)
     }
 
+    fun save(todo: Todo) {
+        jpaTodoRepository.save(todo.toEntity())
+    }
+
     private fun toTodo(it: TodoEntity): Todo = Todo(id = it.id, title = it.title)
 }
+
+private fun Todo.toEntity() = TodoEntity(id = id, title = title)
