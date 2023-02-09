@@ -25,8 +25,8 @@ class TodoServiceImplTest {
     fun `should return todoList when findAll todoList`() {
         val todo: Todo = generateTodo()
         whenever(todoRepository.findAll()).thenReturn(listOf(todo))
-        val todoList: List<TodoDTO> = todoDomainService.getTodoList()
-        assertThat(todoList).containsOnly(TodoDTO(id = todo.id, title = todo.title))
+        val todoList: List<Todo> = todoDomainService.getTodoList()
+        assertThat(todoList).containsOnly(todo)
     }
 
     private fun generateTodo(): Todo = Todo(randomId(), RandomString.make())
