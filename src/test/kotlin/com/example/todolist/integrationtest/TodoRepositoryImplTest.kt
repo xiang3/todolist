@@ -1,9 +1,7 @@
 package com.example.todolist.integrationtest
 
 import com.example.todolist.domain.Todo
-import com.example.todolist.repository.JpaTodoRepository
 import com.example.todolist.repository.TodoRepositoryImpl
-import com.example.todolist.repository.entity.TodoEntity
 import net.bytebuddy.utility.RandomString
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -23,7 +21,7 @@ internal class TodoRepositoryImplTest {
 
     @Test
     fun `should return todo list when call jpaTodoRepo`() {
-        val todo: Todo= generateTodo()
+        val todo: Todo = generateTodo()
         todoRepositoryImpl.save(todo)
         with(todoRepositoryImpl.findAll()) {
             assertThat(this).containsOnly(todo)
